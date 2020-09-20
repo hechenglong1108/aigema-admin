@@ -1,0 +1,95 @@
+ //数据表格配置项详细解读
+ {
+                url:"/api/lesseeBase/page",//获取数据的接口
+                //表头按钮
+                toobar:[
+                    {
+                        label:"新增",
+                        icon:'el-icon-plus',
+                        handler: function () {
+                            _inThis.add()
+                        }
+                    }
+                ],
+                //表头配置
+                columns:[
+                    {prop:"trueName", label:"用户名", minWidth:120},
+                    {prop:"timeH", label:"时间", minWidth:120},
+                    {prop:"province", label:"地址", minWidth:100},
+                    {prop:"gender", label:"性别", minWidth:100,formatter:function (row,column,cellValue, index) {
+                        return cellValue == 1  ? "男" : '女'
+                    }},
+                    //可编辑表格，并支持输入框的失去焦点事件
+                      {prop:"finished_amount", label:"消费金额（元）", minWidth:130,isEdit:true,blur:function (value,row) {
+                                                //    value:当前字段
+                                                //    row:操作的当前行的数据
+                    }},
+                    //表头操作按钮配置
+                    {prop:"gender1", label:"操作", minWidth:100,
+                        isHtml:true,
+                        formatter:function (row,column,cellValue, index) {
+                            return [
+                                {
+                                    html:'<a style="color: red;cursor: pointer">删除</a>',
+                                    hander:function (index,row) {
+                                        //index:操作的当前行的行号，从0开始
+                                        //row:操作的当前行的数据
+                                        _inThis.del(index)
+                                    }
+                                },{
+                                    html:'<a >编辑</a>',
+                                    hander:function (index,row) {
+                                        _inThis.edit(index)
+                                    }
+                                }
+                            ]
+                    }}
+                ],
+                //搜索栏配置
+                searchbar:[
+                    {
+                        text:"时间",
+                        timeSlot:true,/*是否是时间段*/
+                        value:['endTime','startTime']/*后台接收字断*/
+                    },
+                    {
+                        text:"订单号",
+                        value:"code",
+                        placeholder: '',
+                        maxlength: ''
+                    },
+                    {
+                        text:"状态",
+                        isselect:true,/*是否是下拉*/
+                        value:'status',
+                        data:[
+                            {
+                                text:"未分配",/*option文字*/
+                                val:"0"/*option的value*/
+                            },
+                            {
+                                text:"已分配",
+                                val:"1"
+                            },
+                            {
+                                text:"待分配",
+                                val:"0"
+                            }
+                        ]
+                    },
+                    {
+                        text:"借款类型",
+                        isselect:true,/*是否是下拉*/
+                        value:'companyName',
+                        ajax:{/*通过接口获取*/
+                            url:"/api/userCompany/assign",
+                            type:"GET",
+                            data:{},
+                            dataName:"rows",//返回的字断名
+                            text:"name",/*返回的数据里面在需要显示option的文字*/
+                            val:"cid"/*返回的数据里面在需要显示option的value*/
+                        }
+                    }
+                ],
+
+            }
