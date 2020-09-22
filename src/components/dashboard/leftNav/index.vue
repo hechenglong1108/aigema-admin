@@ -44,23 +44,9 @@ export default {
     // 监听路由 获取当前路由
     '$route': {
       handler() {
-        this.activeRoute = this.$route.path
+        this.activeRoute = (this.$route.meta && this.$route.meta.active) || this.$route.path
       },
       immediate: true
-    }
-  },
-  computed: {
-    navData() {
-      let data = this.$router.options.routes
-      // 判断是否有子路由需要显示
-      let newData = data.map(item => {
-        let list = item.children.filter(itemChild => {
-          return itemChild.meta.menuShow
-        })
-        item.isChildMenuShow = list.length == 0 ? false : true
-        return item
-      })
-      return newData
     }
   },
 
