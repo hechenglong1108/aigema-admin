@@ -447,7 +447,7 @@ export default {
         }
       }
       getList({ url: _url, data: _data }).then(res => {
-        if (res.code * 1 == 0) {
+        if (res.code * 1 == 200) {
           if (this.isDatas) {
             this.$emit('update:datas', res.data)
           }
@@ -458,6 +458,7 @@ export default {
           }
           this.loading = false
           this.isFirst = true
+          
           this.total = res.total * 1
           let _pageNum = res.total / this.pagesize
           if (this.isInteger(_pageNum)) {
@@ -489,7 +490,7 @@ export default {
         _Promise = new Promise(resolve => {
           getList({ url: _obj.url, data: _obj.data })
             .then(res => {
-              if (res.code * 1 == 0) {
+              if (res.code * 1 == 200) {
                 if (_obj.dataName) {
                   resolve(res.data[_obj.dataName])
                 } else {
@@ -502,7 +503,7 @@ export default {
         _Promise = new Promise(resolve => {
           getList({ url: _obj.url, data: _obj.data })
             .then(res => {
-              if (res.code * 1 == 0) {
+              if (res.code * 1 == 200) {
                 if (_obj.dataName) {
                   resolve(res.data[_obj.dataName])
                 } else {
@@ -561,7 +562,7 @@ export default {
       }
       let _includeData = this.tableConfig.includeData
       getList({ url: _url, data: data }).then(res => {
-        if (res.code * 1 == 0) {
+        if (res.code * 1 == 200) {
           if (this.isDatas) {
             this.$emit('update:datas', res.data)
           }

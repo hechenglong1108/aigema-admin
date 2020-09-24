@@ -7,7 +7,9 @@ const server = axios.create({
   baseURL: 'http://47.114.77.243:30981/api/',
   // http://47.114.77.243:30981/
   // http://api-admin.aigema.fun:30981/api/
-
+  headers: {
+    'Content-Type': 'application/json'
+  },
   timeout: 20000,
   responseType: 'json',
   withCredentials: true // 允许携带cookie
