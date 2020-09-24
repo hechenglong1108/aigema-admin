@@ -8,22 +8,9 @@
       <span>你要</span>
     </div>
 
-    <el-table
-      :data="list"
-      border
-      style="width:360px"
-    >
-      <el-table-column
-        prop="date"
-        label="卡片内容"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="获得时间"
-        width="180">
-      </el-table-column>
-    </el-table>
+    <ktable :tableConfig="tableData" ref="tables" >
+      
+    </ktable>
   </div>
 </template>
 
@@ -33,14 +20,46 @@ export default {
   props:{},
   data(){
     return {
-      list: []
+      userId: '',
+      tableData: {
+        url: '/ana/admin/customer/card/page',
+        paging: true,
+        columns: [
+          {
+            prop: 'cardName',
+            label: '卡片内容',
+            minWidth: 200
+          },
+          {
+            prop: 'cardFraction',
+            label: '分值',
+            minWidth: 200
+          },
+           {
+            prop: 'state',
+            label: '状态',
+            minWidth: 200,
+            formatter:function (row,column,cellValue) {
+              return cellValue == 1  ? "未使用" : '已使用'
+           }
+          },
+          {
+            prop: 'createdAt',
+            label: '获得时间',
+            minWidth: 200
+          }
+        ]
+      }
     }
   },
   watch:{},
   computed:{},
   methods:{},
   created(){},
-  mounted(){}
+  mounted(){
+    this.userId = this.$router.query.userId
+    this.tableData.url = '/ana/admin/customer/card/page?userId=' + this.userId
+  }
 }
 </script>
 <style  scoped>

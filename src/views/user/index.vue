@@ -3,12 +3,12 @@
     <ktable :tableConfig="tableData" ref="tables" @selections="selection">
       <template slot="name" slot-scope="vals">
         <div>
-          <img :src="vals.rows.img" alt />
+          <img :src="vals.rows.wxImageUrl" alt />
         </div>
       </template>
       <template slot="number" slot-scope="vals">
         <div>
-          <el-button type="text" @click="goDetail(vals.rows)">{{vals.rows.number}}</el-button>
+          <el-button type="text" @click="goDetail(vals.rows.userId)">{{vals.rows.cardNumber}}</el-button>
         </div>
       </template>
     </ktable>
@@ -20,39 +20,36 @@ export default {
   data() {
     return {
       tableData: {
-        url: '/coupon-center/activity/list?activityType=1',
+        url: '/ana/admin/customer/page',
         toobar: [
           
         ],
         paging: true,
         columns: [
           {
-            prop: 'fieldName',
+            prop: 'wxImageUrl',
             label: '用户头像',
             minWidth: 160,
             isElementui: true,
             slotName: 'name'
           },
           {
-            prop: 'alarmField',
+            prop: 'wxName',
             label: '昵称',
             minWidth: 200
           },
           {
-            prop: 'appName',
+            prop: 'userName',
             label: '姓名',
             minWidth: 200
           },
           {
-            prop: 'interfaceType',
+            prop: 'sex',
             label: '性别',
-            minWidth: 160,
-            formatter: function(row) {
-              return row.alarmFieldType === 0 ? '男' : '女'
-            }
+            minWidth: 160
           },
            {
-            prop: 'interfaceType',
+            prop: 'cardNumber',
             label: '卡片张数',
             minWidth: 160,
             slotName: 'number'
@@ -66,7 +63,7 @@ export default {
         searchbar: [
           {
             text: '手机号码：',
-            value: 'createdUser',
+            value: 'mobileNo',
             placeholder: '请输入手机号码'
           }
         ]
@@ -74,8 +71,8 @@ export default {
     }
   },
   methods: {
-    goDetail() {
-      this.$router.push('/user/detail')
+    goDetail(userId) {
+      this.$router.push('/user/detail?userId=' + userId)
     },
     selection() {
 

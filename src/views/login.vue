@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: hcl
+ * @Date: 2020-09-20 15:41:09
+ * @LastEditors: hcl
+ * @LastEditTime: 2020-09-24 20:26:44
+-->
 <template>
   <div class="login">
 
@@ -42,6 +50,7 @@ export default {
       }
       login(_data).then(res => {
         console.log(res)
+        
       })
     }
   }

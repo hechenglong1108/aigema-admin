@@ -3,43 +3,51 @@
     <h5 class="title">订单详情</h5>
 
     <div class="item">
-      <span>订单号：</span>
+      <span>订单号：{{info.bizNo}}</span>
     </div>
     <div class="item">
-      <span>收货人：</span>
+      <span>收货人：{{info.userName}}</span>
     </div>
     <div class="item">
-      <span>收货人电话：</span>
+      <span>收货人电话：{{info.mobileNo}}</span>
     </div>
     <div class="item">
-      <span>收货人地址：</span>
+      <span>收货人地址：{{info.address}}</span>
     </div>
     <div class="item">
-      <span>商品名称：</span>
+      <span>商品名称：{{info.commodityName}}</span>
     </div>
     <div class="item">
-      <span>实际消耗卡片：</span>
+      <span>实际消耗卡片：{{info.cardIdNumber}}</span>
     </div>
     <div class="item">
-      <span>兑换时间：</span>
+      <span>兑换时间：{{info.createdAt}}</span>
     </div>
 
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {getOrderDetail} from '@/api/shop'
 export default {
   components:{},
   props:{},
   data(){
     return {
+      id:'',
+      info:{}
     }
   },
   watch:{},
   computed:{},
   methods:{},
   created(){},
-  mounted(){}
+  mounted(){
+    this.id = this.$route.query.id
+    getOrderDetail({id: this.id}).then(res => {
+      this.info = res.data
+    })
+  }
 }
 </script>
 <style scoped>

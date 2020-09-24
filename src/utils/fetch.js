@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
+import router from './../router'
 
 
 const server = axios.create({
@@ -22,28 +23,19 @@ server.interceptors.request.use(config => {
 // 相应拦截
 server.interceptors.response.use(response => {
   const res = response && response.data
-  if (!res.status) {
-    // 异常处理
-    if (res.code == '9001') {
-      // 登录超时
-      MessageBox.confirm('你已被登出，请重新登录', '确定登出', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        // 刷新页面，更新token
-        
-      }).catch()
-    } else {
-      Message({
-        message: res.message || '请求超时，稍后重试',
-        type: 'error',
-        duration: 3 * 1000
-      })
-    }
-    return Promise.reject(res)
-  } else {
+  if (res.code == 200) {
     return res
+  } else if (res.code == 401) {
+    MessageBox.confirm('你已被登出，请重新登录', '确定登出', {
+      confirmButtonText: '重新登录',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      // 刷新页面，更新token
+      router.push('/login')
+    }).catch()
+  } else {
+    return Promise.reject(res)
   }
 }, error => {
   Message({

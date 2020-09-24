@@ -32,7 +32,8 @@ export default {
           type: 'warning'
         }).then(() => {
           userLogout().then(res => {
-              if (res.status) {
+              if (res.code == 200) {
+                this.$message.success('操作成功')
                 this.$router.push('/login')
               }
             })

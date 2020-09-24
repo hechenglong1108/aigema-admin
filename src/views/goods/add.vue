@@ -10,7 +10,7 @@
       <el-form-item label="缩略图">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://47.114.77.243:30981/api/ana/admin/image/upload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           >
@@ -28,20 +28,28 @@
                     @change="onEditorChange($event)">
       </quill-editor>
       </el-form-item>
+
+      <el-form-item label="商品名称">
+        <el-button>关闭</el-button>
+        <el-button type="primary" @click="save">保存</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {addGoods, editGoods} from '@/api/shop'
 export default {
   components:{},
   props:{},
   data(){
     return {
+      id: '',
       name: '',
       number: '',
       imageUrl: '',
       content: '',
+      originImageId: '',
       editorOption: {
               modules: {
                 toolbar: [
@@ -67,6 +75,25 @@ export default {
   watch:{},
   computed:{},
   methods:{
+    save() {
+      let data = {
+        commodityFraction: this.number,
+        commodityName: this.name,
+        originImageId: this.originImageId,
+        commodityInfo: this.content
+      }
+      if (!this.id) {
+        addGoods(data).then(() => {
+          this.$message.success('新增成功')
+        })
+      } else {
+        data.commodityId = this.id
+        editGoods(data).then(() => {
+          this.$message.success('修改成功')
+        })
+      }
+    
+    },
     // 值发生变化
     onEditorChange(editor) {
       this.content = editor.html;
@@ -77,10 +104,15 @@ export default {
     }
   },
   created(){},
-  mounted(){}
+  mounted(){
+    this.id = this.$route.query.id
+  }
 }
 </script>
 <style scoped>
+.wrapper{
+  text-align: left;
+}
 .editor{
   width: 700px;
 }

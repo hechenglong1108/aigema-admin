@@ -53,86 +53,7 @@
         >{{item.text}}</el-button>
       </li>
     </ul>
-    <!-- <div class="searchbar" id="searchbarbox" v-if="searchbar && searchbar.length != 0">
-      <el-form
-        v-if="searchbar.length"
-        class="g-form-box ktable_search"
-        ref="form"
-        label-position="right"
-        :inline="true"
-        label-width="85px"
-      >
-        <span v-for="(item,index) in searchbar" :key="index">
-          <el-form-item v-if="item.timeSlot" :label="item.text">
-            <el-date-picker
-              class="date_picker"
-              v-model="item.inputValue1"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              size="small"
-              style="line-height:20px"
-              end-placeholder="结束日期"
-            ></el-date-picker>
-          </el-form-item>
 
-          <el-form-item v-else-if="item.isselect" :label="item.text" prop="region">
-            <el-select v-model="item.inputValue" filterable clearable size="small">
-              <template v-for="(select,index) in item.data">
-                <el-option
-                  v-if="select.names"
-                  :key="'a'+index"
-                  :label="select.name"
-                  :value="select.id"
-                  v-html="select.names"
-                ></el-option>
-                <el-option v-else :label="select.text" :key="'a'+index" :value="select.val"></el-option>
-              </template>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item v-else-if="item.isCity" :label="item.text">
-            <el-cascader size="small" v-model="city" :options="cityList" :props="defaultParams" clearable></el-cascader>
-          </el-form-item>
-          <el-form-item v-else-if="item.isHierarchy" :label="item.text">
-            <el-select v-model="item.inputValue" placeholder="请选择" size="small" filterable clearable>
-              <el-option-group v-for="group in item.data" :key="group.id" :label="group.name">
-                <el-option
-                  v-for="val in group.product_list"
-                  :key="val.id"
-                  :label="val.name"
-                  :value="val.id"
-                  v-html="'<span>&nbsp;&nbsp;&nbsp;&nbsp;'+val.name+'<span>'"
-                ></el-option>
-              </el-option-group>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item v-else :label="item.text">
-            <el-input
-              class="custom-input"
-              v-model="item.inputValue"
-              clearable
-              size="small"
-              :placeholder="item.placeholder ? item.placeholder : ''"
-            ></el-input>
-          </el-form-item>
-        </span>
-        <el-form-item>
-          <el-button type="primary" @click="goSearch" size="mini" v-if="!tableConfig.isSerch">搜索</el-button>
-          <el-button type="primary" :class="exportclass" size="mini" v-if="isExport" @click="exports">导出</el-button>
-          <el-button
-            v-for="(item,index) in buttons"
-            type="primary"
-            size="mini"
-            @click="item.hander"
-            :key="index"
-          >{{item.text}}</el-button>
-        </el-form-item>
-      </el-form>
-    </div>-->
-    <!-- 按钮 -->
     <div class="footToobar" ref="footToobar" v-if="!!title || toobar.length > 0">
       <div>
         <span
@@ -521,8 +442,8 @@ export default {
       let _data = {}
       if (this.tableConfig.paging) {
         _data = {
-          pageNo: this.current,
-          pageSize: this.pagesize
+          current: this.current,
+          size: this.pagesize
         }
       }
       getList({ url: _url, data: _data }).then(res => {
@@ -531,14 +452,14 @@ export default {
             this.$emit('update:datas', res.data)
           }
           if (!_includeData) {
-            this.records = res.data.list
+            this.records = res.rows
           } else {
-            this.records = res.data
+            this.records = res.rows
           }
           this.loading = false
           this.isFirst = true
-          this.total = res.data.total * 1
-          let _pageNum = res.data.total / this.pagesize
+          this.total = res.total * 1
+          let _pageNum = res.total / this.pagesize
           if (this.isInteger(_pageNum)) {
             this.pageNum = _pageNum
           } else {
@@ -635,8 +556,8 @@ export default {
 
       let _url = this.tableConfig.url
       if (this.tableConfig.paging) {
-        data.pageNo = this.current
-        data.pageSize = this.pagesize
+        data.current = this.current
+        data.size = this.pagesize
       }
       let _includeData = this.tableConfig.includeData
       getList({ url: _url, data: data }).then(res => {
@@ -645,15 +566,15 @@ export default {
             this.$emit('update:datas', res.data)
           }
           if (!_includeData) {
-            this.records = res.data.list
+            this.records = res.rows
           } else {
-            this.records = res.data
+            this.records = res.rows
           }
 
           this.loading = false
-          this.total = res.data.total * 1
+          this.total = res.total * 1
 
-          let _pageNum = res.data.total / this.pagesize
+          let _pageNum = res.total / this.pagesize
 
           if (this.isInteger(_pageNum)) {
             this.pageNum = _pageNum
