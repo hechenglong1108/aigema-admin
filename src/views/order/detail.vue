@@ -44,7 +44,7 @@ export default {
   created(){},
   mounted(){
     this.id = this.$route.query.id
-    getOrderDetail({id: this.id}).then(res => {
+    getOrderDetail({bizId: this.id}).then(res => {
       this.info = res.data
     })
   }

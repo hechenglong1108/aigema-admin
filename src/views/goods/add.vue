@@ -10,11 +10,12 @@
       <el-form-item label="缩略图">
         <el-upload
           class="avatar-uploader"
-          action="http://47.114.77.243:30981/api/ana/admin/image/upload"
+          :action="baseUrl + 'ana/admin/image/upload'"
           :show-file-list="false"
+          :with-credentials="true"
           :on-success="handleAvatarSuccess"
           >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <img v-if="imageUrl" :src="baseUrl + '/ana/admin/image/view?imageId=' +imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <p>限上传一张缩略图，图片最佳尺寸为180*180像素</p>
@@ -29,7 +30,7 @@
       </quill-editor>
       </el-form-item>
 
-      <el-form-item label="商品名称">
+      <el-form-item label="">
         <el-button>关闭</el-button>
         <el-button type="primary" @click="save">保存</el-button>
       </el-form-item>
@@ -76,20 +77,38 @@ export default {
   computed:{},
   methods:{
     save() {
+      if (!this.name) {
+        this.$message.info('请输入商品名称')
+        return
+      }
+      if (!this.number) {
+        this.$message.info('请输入所需分值')
+        return
+      }
+      if (!this.imageUrl) {
+        this.$message.info('请上传图片')
+        return
+      }
+      if (!this.content) {
+        this.$message.info('请输入商品详情')
+        return
+      }
       let data = {
         commodityFraction: this.number,
         commodityName: this.name,
-        originImageId: this.originImageId,
+        originImageId: this.imageUrl,
         commodityInfo: this.content
       }
       if (!this.id) {
         addGoods(data).then(() => {
           this.$message.success('新增成功')
+          this.$router.go(-1)
         })
       } else {
         data.commodityId = this.id
         editGoods(data).then(() => {
           this.$message.success('修改成功')
+          this.$router.go(-1)
         })
       }
     
@@ -100,7 +119,13 @@ export default {
       console.log(this.content)
     },
     handleAvatarSuccess(file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      console.log(file)
+      if (file.code == 200) {
+        this.imageUrl = file.rows[0]
+        console.log(this.imageUrl)
+      } else {
+        this.$message.error(file.message)
+      }
     }
   },
   created(){},

@@ -11,6 +11,10 @@ const routes = [
     component: Home,
     children: [
       {
+        path: '/',
+        redirect: '/user'
+      },
+      {
         path: '/user',
         name: 'user',
         component: () => import( '@/views/user/index'),

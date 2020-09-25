@@ -37,6 +37,7 @@ server.interceptors.response.use(response => {
       router.push('/login')
     }).catch()
   } else {
+    Message.error(res.message)
     return Promise.reject(res)
   }
 }, error => {

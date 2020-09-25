@@ -42,14 +42,22 @@ export default {
     }
   },
   methods:{
-    
     login() {
+      if (!this.name) {
+        this.$message.info('请输入账号')
+        return
+      }
+      if (!this.pass) {
+        this.$message.info('请输入密码')
+        return
+      }
       let _data = {
         account: this.name,
         password: this.pass
       }
-      login(_data).then(res => {
-        console.log(res)
+      login(_data).then(() => {
+        this.$message.success('登录成功')
+        this.$router.push('/')
         
       })
     }
