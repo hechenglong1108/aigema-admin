@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <ktable :tableConfig="tableData" ref="tables" @selections="selection">
+    <ktable :tableConfig="tableData" ref="tables" >
        <template slot="operation" slot-scope="vals">
         <div>
           <el-button type="text" v-if="vals.rows.state == 10" @click="showdeliver(vals.rows.bizId)">发货</el-button>
@@ -10,11 +10,10 @@
     </ktable>
 
     <el-dialog
-        title="提示"
+        title="发货"
         :visible.sync="dialogVisible"
         width="30%"
-        :before-close="handleClose">
-        <span>发货</span>
+        >
         <el-form ref="form"  label-width="80px">
         <el-form-item label="物流公司">
           <el-input v-model="name"></el-input>
@@ -35,6 +34,7 @@
 import { deliver } from './../../api/shop'
 export default {
   data() {
+    var _inThis = this
     return {
       dialogVisible: false,
       name:"",
@@ -43,24 +43,30 @@ export default {
       tableData: {
         url: '/ana/admin/biz/page',
         toobar: [
-          
+          {
+            label:"导出",
+            icon:'el-icon-upload',
+            handler: function () {
+                _inThis.add()
+            }
+          }
         ],
         paging: true,
         columns: [
            {
             prop: 'bizNo',
             label: '订单编号',
-            minWidth: 200
+            minWidth: 100
           },
           {
             prop: 'userName',
             label: '收件人',
-            minWidth: 200
+            minWidth: 80
           },
           {
             prop: 'mobileNo',
             label: '联系方式',
-            minWidth: 200
+            minWidth: 120
           },
           {
             prop: 'address',
@@ -70,23 +76,23 @@ export default {
           {
             prop: 'commodityName',
             label: '兑换商品',
-            minWidth: 200
+            minWidth: 100
           },
          
           {
             prop: 'cardIdNumber',
             label: '消耗卡片',
-            minWidth: 200
+            minWidth: 80
           },
           {
             prop: 'createdAt',
             label: '创建时间',
-            minWidth: 200
+            minWidth: 120
           },
           {
             prop: 'state',
             label: '状态',
-            minWidth: 160,
+            minWidth: 60,
             formatter: function(row) {
               return row.state == 10 ? '未发货' : '已发货'
             }
@@ -94,7 +100,7 @@ export default {
           {
             prop: 'fieldName1',
             label: '操作',
-            minWidth: 160,
+            minWidth: 60,
             isElementui: true,
             slotName: 'operation'
           }
@@ -114,16 +120,20 @@ export default {
     goDetail(id) {
       this.$router.push('/order/detail?id=' + id)
     },
-    deliver(){
-      deliver().then(res => {
-        console.log(res)
+    deliver(id){
+      deliver({bizId: id}).then(() => {
+        this.$message.success('发货成功')
+        this.$refs.tables.refresh()
       })
     },
     showdeliver(id) {
-      this.dialogVisible = true
-      this.name = ''
-      this.number = ''
-      this.id = id
+        this.$confirm('确认发货吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deliver(id)
+        })
     }
   }
 }

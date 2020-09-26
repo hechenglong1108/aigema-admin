@@ -20,7 +20,7 @@ Vue.use(Element)
 Vue.use(Ktable)
 
 Vue.config.productionTip = false
-Vue.prototype.baseUrl = 'http://47.114.77.243:30981/api/'
+Vue.prototype.baseUrl = 'http://api-admin.aigema.fun/api/'
 
 new Vue({
   router,

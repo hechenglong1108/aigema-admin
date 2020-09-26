@@ -1,17 +1,17 @@
 <template>
   <div class="wrapper">
-    <ktable :tableConfig="tableData" ref="tables" @selections="selection">
+    <ktable :tableConfig="tableData" ref="tables" >
       <template slot="name" slot-scope="vals">
         <div>
-          <img :src="'http://47.114.77.243:30981/api/'+vals.rows.shrinkImageId" alt />
+          <img style="width:60px" :src="baseUrl + '/ana/admin/image/view?imageId=' +vals.rows.shrinkImageId" alt />
         </div>
       </template>
 
       <template slot="operation" slot-scope="vals">
         <div>
           <el-button type="text" @click="edit(vals.rows.commodityId)">修改</el-button>
-           <el-button v-if="vals.rows.state == 0" type="text" @click="offShelf(1,vals.rows.commodityId)">下架</el-button>
-           <el-button v-if="vals.rows.state == 1" type="text" @click="offShelf(0,vals.rows.commodityId)">上架</el-button>
+           <el-button v-if="vals.rows.state == 1" type="text" @click="offShelf(0,vals.rows.commodityId)">下架</el-button>
+           <el-button v-if="vals.rows.state == 0" type="text" @click="offShelf(1,vals.rows.commodityId)">上架</el-button>
         </div>
       </template>
     </ktable>
@@ -82,7 +82,7 @@ export default {
     },
     // 下架 state:0:下架1：上架
     offShelf(state,id) {
-      let str = state == 1 ? '确认下架此商品吗？' : '确认上架此商品吗？'
+      let str = state == 0 ? '确认下架此商品吗？' : '确认上架此商品吗？'
       this.$confirm(str, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -93,7 +93,7 @@ export default {
             state
           }).then(() => {
             this.$message.success('操作成功')
-            this.$refs.tables.refesh()
+            this.$refs.tables.refresh()
           })
         })
     },

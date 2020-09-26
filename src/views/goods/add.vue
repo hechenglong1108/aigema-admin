@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
-    <el-form ref="form" class="form" label-width="120px">
+    <div>
+          <el-form ref="form" class="form" label-width="120px">
       <el-form-item label="商品名称">
         <el-input v-model="name"></el-input>
       </el-form-item>
@@ -18,7 +19,7 @@
           <img v-if="imageUrl" :src="baseUrl + '/ana/admin/image/view?imageId=' +imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
-        <p>限上传一张缩略图，图片最佳尺寸为180*180像素</p>
+        <p>限上传一张缩略图，图片最佳尺寸为232*232像素</p>
       </el-form-item>
 
       <el-form-item label="商品详情">
@@ -35,11 +36,13 @@
         <el-button type="primary" @click="save">保存</el-button>
       </el-form-item>
     </el-form>
+    </div>
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import {addGoods, editGoods} from '@/api/shop'
+import {addGoods, editGoods, getGoodsDetail} from '@/api/shop'
 export default {
   components:{},
   props:{},
@@ -55,7 +58,6 @@ export default {
               modules: {
                 toolbar: [
                   ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
-                  ["blockquote", "code-block"], // 引用  代码块
                   [{ header: 1 }, { header: 2 }], // 1、2 级标题
                   [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
                   [{ script: "sub" }, { script: "super" }], // 上标/下标
@@ -67,7 +69,7 @@ export default {
                   [{ font: [] }], // 字体种类
                   [{ align: [] }], // 对齐方式
                   ["clean"], // 清除文本格式
-                  ["link", "image", "video"] // 链接、图片、视频
+                  ["image"] // 链接、图片、视频
                 ] //工具菜单栏配置
               }
       }
@@ -131,12 +133,21 @@ export default {
   created(){},
   mounted(){
     this.id = this.$route.query.id
+    if (this.id) {
+      getGoodsDetail({commodityId: this.id}).then(res => {
+        this.name = res.data.commodityName
+        this.number = res.data.commodityFraction
+        this.imageUrl = res.data.originImageId
+        this.content = res.data.commodityInfo
+      })
+    }
   }
 }
 </script>
 <style scoped>
 .wrapper{
   text-align: left;
+  width:100%;
 }
 .editor{
   width: 700px;

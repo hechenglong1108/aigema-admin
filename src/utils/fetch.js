@@ -4,7 +4,7 @@ import router from './../router'
 
 
 const server = axios.create({
-  baseURL: 'http://47.114.77.243:30981/api/',
+  baseURL: 'http://api-admin.aigema.fun/api/',
   // http://47.114.77.243:30981/
   // http://api-admin.aigema.fun:30981/api/
   headers: {

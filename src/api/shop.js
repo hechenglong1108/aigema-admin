@@ -25,10 +25,11 @@ export function userLogout() {
 /**
  * 发货
  */
-export function deliver() {
+export function deliver(data) {
   return fetch({
-    url: '/aip/admin/logout',
-    method: 'POST'
+    url: '/ana/admin/biz/ship',
+    method: 'POST',
+    data
   })
 }
 
@@ -67,6 +68,18 @@ export function editGoods(data) {
   })
 }
 
+/**
+ * 商品详情
+ */
+export function getGoodsDetail(params) {
+  return fetch({
+    url: '/ana/admin/commodity/detail',
+    method: 'GET',
+    params
+  })
+}
+
+
 
 /**
  * 下架商品
@@ -78,6 +91,18 @@ export function offShelf(data) {
     data
   })
 }
+
+/**
+ * 获取用户卡片
+ */
+export function getUserK(data) {
+  return fetch({
+    url: '/ana/admin/commodity/updateSate',
+    method: 'POST',
+    data
+  })
+}
+
 
 
 

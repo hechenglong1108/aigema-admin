@@ -3,9 +3,9 @@
     <h5 class="title">卡片信息</h5>
     <div class="info">
       <div>
-        <img src="" alt="">
+        <img :src="url" alt="">
       </div>
-      <span>你要</span>
+      <span>{{name}}</span>
     </div>
 
     <ktable :tableConfig="tableData" ref="tables" >
@@ -21,8 +21,10 @@ export default {
   data(){
     return {
       userId: '',
+      name: '',
+      url: '',
       tableData: {
-        url: '/ana/admin/customer/card/page',
+        url: '',
         paging: true,
         columns: [
           {
@@ -57,8 +59,11 @@ export default {
   methods:{},
   created(){},
   mounted(){
-    this.userId = this.$router.query.userId
+    this.userId = this.$route.query.userId
+    this.name = this.$route.query.name
+    this.url = this.$route.query.url
     this.tableData.url = '/ana/admin/customer/card/page?userId=' + this.userId
+    this.$refs.tables.refresh()
   }
 }
 </script>
@@ -71,5 +76,18 @@ export default {
 .info{
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.info div{
+  margin-right: 20px;
+  margin-left: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.info div img{
+  width: 100%;
 }
 </style>

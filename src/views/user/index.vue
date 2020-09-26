@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
-    <ktable :tableConfig="tableData" ref="tables" @selections="selection">
+    <ktable :tableConfig="tableData" ref="tables" >
       <template slot="name" slot-scope="vals">
         <div>
-          <img :src="vals.rows.wxImageUrl" alt />
+          <img style="width:60px" :src="vals.rows.wxImageUrl" alt />
         </div>
       </template>
       <template slot="number" slot-scope="vals">
         <div>
-          <el-button type="text" @click="goDetail(vals.rows.userId)">{{vals.rows.cardNumber}}</el-button>
+          <el-button type="text" @click="goDetail(vals.rows.userId,vals.rows.wxName,vals.rows.wxImageUrl)">{{vals.rows.cardNumber}}</el-button>
         </div>
       </template>
     </ktable>
@@ -52,6 +52,7 @@ export default {
             prop: 'cardNumber',
             label: '卡片张数',
             minWidth: 160,
+            isElementui: true,
             slotName: 'number'
           },
           {
@@ -71,8 +72,8 @@ export default {
     }
   },
   methods: {
-    goDetail(userId) {
-      this.$router.push('/user/detail?userId=' + userId)
+    goDetail(userId, name, url) {
+      this.$router.push('/user/detail?userId=' + userId + '&name=' + name + '&url=' + url)
     },
     selection() {
 

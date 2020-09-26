@@ -43,7 +43,6 @@
       </li>
       <li class="searchbar-item">
         <el-button type="primary" @click="goSearch" size="mini" v-if="!tableConfig.isSerch">搜索</el-button>
-        <el-button type="primary" :class="exportclass" size="mini" v-if="isExport" @click="exports">导出</el-button>
         <el-button
           v-for="(item,index) in buttons"
           type="primary"
@@ -338,42 +337,6 @@ export default {
           }
         })
     },
-    exports() {
-      var _str = ''
-      var data = {}
-      this.searchbar.forEach(item => {
-        if (item.timeSlot) {
-          if (!item.inputValue1) {
-            data[item.value] = item.inputValue1[0] + '～' + item.inputValue1[1]
-          }
-        } else if (item.isCity) {
-          if (this.city.length > 0) {
-            data[item.value.province] = this.city[0]
-            data[item.value.city] = this.city[1]
-            data[item.value.area] = this.city[2]
-          }
-        } else {
-          if (item.inputValue) {
-            data[item.value] = item.inputValue
-          }
-        }
-      })
-      for (var i in data) {
-        _str += '&' + i + '=' + data[i]
-      }
-      var _url = ''
-      if (this.isExport.indexOf('?') != -1) {
-        _url = this.isExport + _str
-      } else {
-        _str = _str.substr(1, _str.length - 1)
-        if (_str) {
-          _url = this.isExport + '?' + _str
-        } else {
-          _url = this.isExport
-        }
-      }
-      window.location.href = _url
-    },
 
     // 失去焦点获取data
     blurNmber() {
@@ -433,47 +396,6 @@ export default {
     },
     isInteger(obj) {
       return obj % 1 === 0
-    },
-    // 获取数据
-    getdata() {
-      this.loading = true
-      let _url = this.tableConfig.url
-      let _includeData = this.tableConfig.includeData
-      let _data = {}
-      if (this.tableConfig.paging) {
-        _data = {
-          current: this.current,
-          size: this.pagesize
-        }
-      }
-      getList({ url: _url, data: _data }).then(res => {
-        if (res.code * 1 == 200) {
-          if (this.isDatas) {
-            this.$emit('update:datas', res.data)
-          }
-          if (!_includeData) {
-            this.records = res.rows
-          } else {
-            this.records = res.rows
-          }
-          this.loading = false
-          this.isFirst = true
-          
-          this.total = res.total * 1
-          let _pageNum = res.total / this.pagesize
-          if (this.isInteger(_pageNum)) {
-            this.pageNum = _pageNum
-          } else {
-            this.pageNum = parseInt(_pageNum) + 1
-          }
-        } else {
-          if (this.isDatas) {
-            this.$emit('update:datas', res)
-            this.records = []
-          }
-          this.loading = false
-        }
-      })
     },
     // 换页刷新
     refreshPageRequest: function(pageNum) {
@@ -556,6 +478,9 @@ export default {
       })
 
       let _url = this.tableConfig.url
+      if (!_url) {
+        return
+      }
       if (this.tableConfig.paging) {
         data.current = this.current
         data.size = this.pagesize

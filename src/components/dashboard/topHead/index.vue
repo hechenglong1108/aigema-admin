@@ -3,8 +3,8 @@
     <div class="isCollapse">
       <!-- <i :class="isCollapse ? 'el-icon-s-unfold': 'el-icon-s-fold'" @click="switchIsCollapse"></i> -->
     </div>
-    <div>
-      <i class="el-icon-switch-button exit-btn" @click="exitLogin"></i>
+    <div class="exit-btn" @click="exitLogin">
+      <i class="el-icon-switch-button exit-btn" ></i>退出
     </div>
   </div>
 </template>
@@ -45,5 +45,8 @@ export default {
 <style lang="less" scope="">
 .exit-btn{
   cursor: pointer;
+  i{
+    margin-right: 5px;
+  }
 }
 </style>
