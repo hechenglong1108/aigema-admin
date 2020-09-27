@@ -56,12 +56,12 @@ export default {
            {
             prop: 'bizNo',
             label: '订单编号',
-            minWidth: 100
+            minWidth: 80
           },
           {
             prop: 'userName',
             label: '收件人',
-            minWidth: 80
+            minWidth: 50
           },
           {
             prop: 'mobileNo',
@@ -100,7 +100,7 @@ export default {
           {
             prop: 'fieldName1',
             label: '操作',
-            minWidth: 60,
+            minWidth: 80,
             isElementui: true,
             slotName: 'operation'
           }

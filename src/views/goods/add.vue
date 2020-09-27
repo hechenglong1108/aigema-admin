@@ -3,10 +3,10 @@
     <div>
           <el-form ref="form" class="form" label-width="120px">
       <el-form-item label="商品名称">
-        <el-input v-model="name"></el-input>
+        <el-input v-model="name" style="width:400px"></el-input>
       </el-form-item>
       <el-form-item label="商品所需分值">
-        <el-input v-model="number"></el-input>
+        <el-input v-model="number" style="width:400px"></el-input>
       </el-form-item>
       <el-form-item label="缩略图">
         <el-upload
@@ -59,7 +59,7 @@ export default {
                 toolbar: [
                   ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
                   [{ header: 1 }, { header: 2 }], // 1、2 级标题
-                  [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
+                  // [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
                   [{ script: "sub" }, { script: "super" }], // 上标/下标
                   [{ indent: "-1" }, { indent: "+1" }], // 缩进
                   // [{'direction': 'rtl'}],                         // 文本方向
@@ -67,7 +67,7 @@ export default {
                   [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
                   [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
                   [{ font: [] }], // 字体种类
-                  [{ align: [] }], // 对齐方式
+                  // [{ align: [] }], // 对齐方式
                   ["clean"], // 清除文本格式
                   ["image"] // 链接、图片、视频
                 ] //工具菜单栏配置
@@ -178,6 +178,16 @@ export default {
     display: block;
   }
   .form{
-    width: 460px;
+    width: 100%;
+    position: static;
+  height: 100%;
+  box-shadow: none;
+  background: transparent;
+  border-radius: 0;
+  top: 0;
+  margin-top: 0;
+  left: 0;
+  margin-left: 0;
+  overflow: hidden;
   }
 </style>

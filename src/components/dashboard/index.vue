@@ -129,9 +129,10 @@ export default {
   left: 0;
   right: 0;
   z-index: 199;
+  background: chocolate;
   .friendTips {
     background: url('/static/img/tipsbgc.jpg') center center no-repeat;
-    background-size: cover;
+    background-size: chocolate;
     width: 100%;
     height: 100%;
     padding: 0 20px;
@@ -142,7 +143,8 @@ export default {
     }
   }
   .offline-tips {
-    background: url('/static/img/offline-bg.png') center center no-repeat;
+    // background: url('/static/img/offline-bg.png') center center no-repeat;
+    background: chocolate;
     background-size: cover;
     width: 100%;
     height: 100%;
