@@ -34,7 +34,7 @@
 import { deliver } from './../../api/shop'
 export default {
   data() {
-    var _inThis = this
+    var that = this
     return {
       dialogVisible: false,
       name:"",
@@ -47,7 +47,7 @@ export default {
             label:"导出",
             icon:'el-icon-upload',
             handler: function () {
-                _inThis.add()
+                window.open(that.baseUrl+'/ana/admin/customer/export')
             }
           }
         ],

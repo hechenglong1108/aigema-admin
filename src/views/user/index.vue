@@ -43,6 +43,11 @@ export default {
             label: '姓名',
             minWidth: 200
           },
+           {
+            prop: 'mobileNo',
+            label: '手机号码',
+            minWidth: 200
+          },
           {
             prop: 'sex',
             label: '性别',
