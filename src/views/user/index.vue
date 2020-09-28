@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: hcl
+ * @Date: 2020-09-20 16:06:55
+ * @LastEditors: hcl
+ * @LastEditTime: 2020-09-28 15:36:16
+-->
 <template>
   <div class="wrapper">
     <ktable :tableConfig="tableData" ref="tables" >
@@ -36,11 +44,6 @@ export default {
           {
             prop: 'wxName',
             label: '昵称',
-            minWidth: 200
-          },
-          {
-            prop: 'userName',
-            label: '姓名',
             minWidth: 200
           },
            {
