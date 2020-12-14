@@ -19,14 +19,41 @@
           <el-button type="text" @click="goDetail(vals.rows.userId,vals.rows.wxName,vals.rows.wxImageUrl)">{{vals.rows.cardNumber}}</el-button>
         </div>
       </template>
+      <template slot="operation" slot-scope="vals">
+        <div>
+          <el-button type="text" @click="operationNum(vals.rows.userId)">发放嘟点</el-button>
+        </div>
+      </template>
     </ktable>
+
+    <el-dialog
+      title="发放嘟点"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <el-form ref="form"  label-width="80px">
+        <el-form-item label="嘟点">
+            <el-input-number v-model="num" :min="1" :max="1000000" label=""></el-input-number>
+        </el-form-item>
+        <el-form-item label="">
+             
+        </el-form-item>
+      </el-form> 
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="rewardFaction">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {rewardFaction} from '@/api/shop'
 export default {
   data() {
     return {
+      dialogVisible: false,
+      num: '',
+      userId: '',
       tableData: {
         url: '/ana/admin/customer/page',
         toobar: [
@@ -67,6 +94,13 @@ export default {
             prop: 'createdAt',
             label: '注册时间',
             minWidth: 160
+          },
+          {
+            prop: 'operation',
+            label: '操作',
+            minWidth: 100,
+            isElementui: true,
+            slotName: 'operation'
           }
         ],
         searchbar: [
@@ -80,6 +114,16 @@ export default {
     }
   },
   methods: {
+    rewardFaction() {
+      rewardFaction({userId: this.userId, faction: this.num}).then(() => {
+        this.$message.success('发放成功')
+        this.dialogVisible = false
+      })
+    },
+    operationNum(userId) {
+      this.userId = userId
+      this.dialogVisible = true
+    },
     goDetail(userId, name, url) {
       this.$router.push('/user/detail?userId=' + userId + '&name=' + name + '&url=' + url)
     },
@@ -92,3 +136,10 @@ export default {
   }
 }
 </script>
+<style scope>
+  .dialog-footer{
+    text-align: center  !important;
+    width: 100%;
+    display: block;
+  }
+</style>

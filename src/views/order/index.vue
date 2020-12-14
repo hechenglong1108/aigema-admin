@@ -120,20 +120,20 @@ export default {
     goDetail(id) {
       this.$router.push('/order/detail?id=' + id)
     },
-    deliver(id){
-      deliver({bizId: id}).then(() => {
-        this.$message.success('发货成功')
-        this.$refs.tables.refresh()
+    deliver(){
+      deliver({
+        logisticsName: this.name,
+        logisticsNo: this.number,
+        bizId: this.id
+        }).then(() => {
+          this.dialogVisible = false
+          this.$message.success('发货成功')
+          this.$refs.tables.refresh()
       })
     },
     showdeliver(id) {
-        this.$confirm('确认发货吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.deliver(id)
-        })
+      this.dialogVisible = true
+      this.id = id
     }
   }
 }

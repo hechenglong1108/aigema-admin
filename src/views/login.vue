@@ -55,7 +55,8 @@ export default {
         account: this.name,
         password: this.pass
       }
-      login(_data).then(() => {
+      login(_data).then((res) => {
+        sessionStorage.setItem('Authorization', res.data.sid)
         this.$message.success('登录成功')
         this.$router.push('/')
         

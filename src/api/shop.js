@@ -78,6 +78,17 @@ export function getGoodsDetail(params) {
     params
   })
 }
+/**
+ * 删除商品
+ */
+export function deleteGoods(data) {
+  return fetch({
+    url: '/ana/admin/commodity/delete',
+    method: 'POST',
+    data
+  })
+}
+
 
 
 
@@ -102,6 +113,81 @@ export function getUserK(data) {
     data
   })
 }
+/**
+ * 发放都点
+ */
+export function rewardFaction(data) {
+  return fetch({
+    url: '/ana/admin/system/reward/faction',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 新增banner
+ */
+export function addBanner(data) {
+  return fetch({
+    url: '/ana/admin/banner/insert',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 修改banner
+ */
+export function editBanner(data) {
+  return fetch({
+    url: '/ana/admin/banner/update',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 修改banner
+ */
+export function getBanner(params) {
+  return fetch({
+    url: '/ana/admin/banner/info',
+    method: 'GET',
+    params
+  })
+}
+/**
+ * 修改banner
+ */
+export function editBannerStatus(data) {
+  return fetch({
+    url: '/ana/admin/banner/updateState',
+    method: 'POST',
+    data
+  })
+}
+/**
+ * 修改banner
+ */
+export function deletebanner(data) {
+  return fetch({
+    url: '/ana/admin/banner/delete',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 修改banner
+ */
+export function editState(data) {
+  return fetch({
+    url: '/ana/admin/award/log/update/state',
+    method: 'POST',
+    data
+  })
+}
+
 
 
 

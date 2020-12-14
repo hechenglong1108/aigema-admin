@@ -12,6 +12,7 @@
           <el-button type="text" @click="edit(vals.rows.commodityId)">修改</el-button>
            <el-button v-if="vals.rows.state == 1" type="text" @click="offShelf(0,vals.rows.commodityId)">下架</el-button>
            <el-button v-if="vals.rows.state == 0" type="text" @click="offShelf(1,vals.rows.commodityId)">上架</el-button>
+           <el-button type="text" @click="deleteGoods(vals.rows.commodityId)">删除</el-button>
         </div>
       </template>
     </ktable>
@@ -19,7 +20,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {offShelf} from '@/api/shop'
+import {offShelf, deleteGoods} from '@/api/shop'
 export default {
   data() {
     let _inThis = this
@@ -79,6 +80,21 @@ export default {
     // 
     edit(id) {
       this.$router.push('/goods/add?id=' + id)
+    },
+     // 删除
+    deleteGoods(id) {
+      this.$confirm('确定删除吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteGoods({
+            commodityId: id,
+          }).then(() => {
+            this.$message.success('操作成功')
+            this.$refs.tables.refresh()
+          })
+        })
     },
     // 下架 state:0:下架1：上架
     offShelf(state,id) {

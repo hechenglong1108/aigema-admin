@@ -12,7 +12,23 @@ const routes = [
     children: [
       {
         path: '/',
-        redirect: '/user'
+        redirect: '/banner'
+      },
+      {
+        path: '/banner',
+        name: 'banner',
+        component: () => import( '@/views/banner/index'),
+        meta:{
+          active: '/banner'
+        }
+      },
+      {
+        path: '/banner/add',
+        name: 'banner',
+        component: () => import( '@/views/banner/add.vue'),
+        meta:{
+          active: '/banner'
+        }
       },
       {
         path: '/user',
@@ -61,6 +77,15 @@ const routes = [
         component: () => import( '@/views/order/detail'),
         meta:{
           active: '/order'
+        }
+      }
+      ,
+      {
+        path: '/luckDraw',
+        name: 'luckDraw',
+        component: () => import( '@/views/luckDraw/index'),
+        meta:{
+          active: '/luckDraw'
         }
       }
     ]

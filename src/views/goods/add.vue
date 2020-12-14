@@ -8,6 +8,13 @@
       <el-form-item label="商品所需分值">
         <el-input v-model="number" style="width:400px"></el-input>
       </el-form-item>
+      <el-form-item label="分类">
+        <el-select v-model="commodityCategory" placeholder="请选择活动区域">
+          <el-option label="婴儿尿裤" :value="1"></el-option>
+          <el-option label="智能早教" :value="2"></el-option>
+          <el-option label="母婴好物" :value="3"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="缩略图">
         <el-upload
           class="avatar-uploader"
@@ -51,6 +58,7 @@ export default {
       id: '',
       name: '',
       number: '',
+      commodityCategory: 1,
       imageUrl: '',
       content: '',
       originImageId: '',
@@ -99,7 +107,8 @@ export default {
         commodityFraction: this.number,
         commodityName: this.name,
         originImageId: this.imageUrl,
-        commodityInfo: this.content
+        commodityInfo: this.content,
+        commodityCategory: this.commodityCategory
       }
       if (!this.id) {
         addGoods(data).then(() => {
@@ -139,6 +148,7 @@ export default {
         this.number = res.data.commodityFraction
         this.imageUrl = res.data.originImageId
         this.content = res.data.commodityInfo
+        this.commodityCategory = res.data.commodityCategory
       })
     }
   }

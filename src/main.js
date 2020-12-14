@@ -10,10 +10,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Element from 'element-ui'
 import Ktable from '@/components/ktable'
 import VueQuillEditor from 'vue-quill-editor'
+import VueKylin from 'vue-kylin'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+
 Vue.use(VueQuillEditor);
+Vue.use(VueKylin);
 
 
 Vue.use(Element)
