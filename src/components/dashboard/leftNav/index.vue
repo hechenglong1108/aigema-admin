@@ -21,23 +21,23 @@
         :router="true"
       >
       <el-menu-item index="/banner">
-          <i class="iconfont iconfont-right el-icon-picture"></i>
+          <!-- <i class="iconfont iconfont-right el-icon-picture"></i> -->
           <span>banner管理</span>
         </el-menu-item>
         <el-menu-item index="/user">
-          <i class="iconfont iconfont-right el-icon-user-solid"></i>
+          <!-- <i class="iconfont iconfont-right el-icon-user-solid"></i> -->
           <span>用户管理</span>
         </el-menu-item>
         <el-menu-item index="/goods">
-          <i class="iconfont iconfont-right el-icon-goods"></i>
+          <!-- <i class="iconfont iconfont-right el-icon-goods"></i> -->
           <span>商品管理</span>
         </el-menu-item>
         <el-menu-item index="/order">
-          <i class="iconfont iconfont-right el-icon-s-order"></i>
+          <!-- <i class="iconfont iconfont-right el-icon-s-order"></i> -->
           <span>订单管理</span>
         </el-menu-item>
         <el-menu-item index="/luckDraw">
-          <i class="iconfont iconfont-right el-icon-s-order"></i>
+          <!-- <i class="iconfont iconfont-right el-icon-s-order"></i> -->
           <span>抽奖记录</span>
         </el-menu-item>
       </el-menu>

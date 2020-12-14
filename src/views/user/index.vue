@@ -29,7 +29,8 @@
     <el-dialog
       title="发放嘟点"
       :visible.sync="dialogVisible"
-      width="30%">
+      class="dialog"
+      width="100%">
       <el-form ref="form"  label-width="80px">
         <el-form-item label="嘟点">
             <el-input-number v-model="num" :min="1" :max="1000000" label=""></el-input-number>
@@ -83,13 +84,18 @@ export default {
             label: '性别',
             minWidth: 160
           },
-           {
-            prop: 'cardNumber',
-            label: '卡片张数',
-            minWidth: 160,
-            isElementui: true,
-            slotName: 'number'
+          {
+            prop: 'totalFraction',
+            label: '剩余嘟点总数',
+            minWidth: 120
           },
+          //  {
+          //   prop: 'cardNumber',
+          //   label: '卡片张数',
+          //   minWidth: 160,
+          //   isElementui: true,
+          //   slotName: 'number'
+          // },
           {
             prop: 'createdAt',
             label: '注册时间',
@@ -118,6 +124,7 @@ export default {
       rewardFaction({userId: this.userId, faction: this.num}).then(() => {
         this.$message.success('发放成功')
         this.dialogVisible = false
+        this.$refs.tables.refresh()
       })
     },
     operationNum(userId) {
@@ -141,5 +148,8 @@ export default {
     text-align: center  !important;
     width: 100%;
     display: block;
+  }
+  .dialog{
+    width: 400px;
   }
 </style>

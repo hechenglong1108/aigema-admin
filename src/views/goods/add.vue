@@ -39,7 +39,7 @@
       </el-form-item>
 
       <el-form-item label="">
-        <el-button>关闭</el-button>
+        <el-button @click="close">关闭</el-button>
         <el-button type="primary" @click="save">保存</el-button>
       </el-form-item>
     </el-form>
@@ -86,6 +86,9 @@ export default {
   watch:{},
   computed:{},
   methods:{
+    close() {
+      this.$router.go(-1)
+    },
     save() {
       if (!this.name) {
         this.$message.info('请输入商品名称')
