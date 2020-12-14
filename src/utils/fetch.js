@@ -8,8 +8,7 @@ const server = axios.create({
   // baseURL: 'http://47.114.77.243:30981/',
   // http://api-admin.aigema.fun:30981/api/
   headers: {
-    'Content-Type': 'application/json',
-    'Authorization': '222'
+    'Content-Type': 'application/json'
   },
   timeout: 20000,
   responseType: 'json',
@@ -18,7 +17,7 @@ const server = axios.create({
 
 // 请求拦截器
 server.interceptors.request.use(config => {
-  config.headers.Authorization = 'agmauth ' +sessionStorage.getItem('Authorization')
+  // config.headers.Authorization = 'agmauth ' +sessionStorage.getItem('Authorization')
   return config
 }, error => {
   return Promise.reject(error)
