@@ -78,10 +78,14 @@ export default {
             label: '兑换商品',
             minWidth: 100
           },
-         
           {
-            prop: 'cardIdNumber',
-            label: '消耗卡片',
+            prop: 'commodityNumber',
+            label: '兑换商品数量',
+            minWidth: 100
+          },
+          {
+            prop: 'useFraction',
+            label: '消耗嘟点',
             minWidth: 80
           },
           {

@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: hcl
+ * @Date: 2020-09-22 20:12:51
+ * @LastEditors: hcl
+ * @LastEditTime: 2020-12-15 20:40:58
+-->
 <template>
   <div class="wrapper">
     <h5 class="title">订单详情</h5>
@@ -18,7 +26,13 @@
       <span>商品名称：{{info.commodityName}}</span>
     </div>
     <div class="item">
-      <span>实际消耗卡片：{{info.cardIdNumber}}</span>
+      <span>兑换商品数量：{{info.commodityNumber}}</span>
+    </div>
+    <div class="item">
+      <span>消耗嘟点：{{info.useFraction}}</span>
+    </div>
+    <div class="item" v-if="info.state == 20">
+      <span>快递单号：{{info.logisticsNo}}（{{info.logisticsName}}）</span>
     </div>
     <div class="item">
       <span>兑换时间：{{info.createdAt}}</span>
