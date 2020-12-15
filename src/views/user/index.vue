@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2020-09-28 15:36:16
+ * @LastEditTime: 2020-12-15 09:57:46
 -->
 <template>
   <div class="wrapper">
@@ -151,5 +151,6 @@ export default {
   }
   .dialog{
     width: 400px;
+    margin: auto;
   }
 </style>
