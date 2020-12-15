@@ -59,12 +59,12 @@ export default {
             minWidth: 80
           },
           {
-            prop: 'userName',
+            prop: 'addrUserName',
             label: '收件人',
             minWidth: 50
           },
           {
-            prop: 'mobileNo',
+            prop: 'addrMobileNo',
             label: '联系方式',
             minWidth: 120
           },

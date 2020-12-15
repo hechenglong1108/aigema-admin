@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-22 20:12:51
  * @LastEditors: hcl
- * @LastEditTime: 2020-12-15 20:40:58
+ * @LastEditTime: 2020-12-15 21:18:45
 -->
 <template>
   <div class="wrapper">
@@ -14,10 +14,10 @@
       <span>订单号：{{info.bizNo}}</span>
     </div>
     <div class="item">
-      <span>收货人：{{info.userName}}</span>
+      <span>收货人：{{info.addrUserName}}</span>
     </div>
     <div class="item">
-      <span>收货人电话：{{info.mobileNo}}</span>
+      <span>收货人电话：{{info.addrMobileNo}}</span>
     </div>
     <div class="item">
       <span>收货人地址：{{info.address}}</span>
