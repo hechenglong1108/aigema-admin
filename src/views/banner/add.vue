@@ -108,7 +108,8 @@ export default {
       let data = {
         status: 0,
         imgId: this.imageUrl,
-        desc: this.content
+        desc: this.content,
+        sort: this.sort
       }
       if (!this.id) {
         addBanner(data).then(() => {
