@@ -4,7 +4,8 @@
        <template slot="operation" slot-scope="vals">
         <div>
           <el-button type="text" v-if="vals.rows.state == 10" @click="showdeliver(vals.rows.bizId)">发货</el-button>
-           <el-button type="text" @click="goDetail(vals.rows.bizId)">详情</el-button>
+          <el-button type="text" v-if="vals.rows.state == 20" @click="editDeliver(vals.rows)">修改物流信息</el-button>
+          <el-button type="text" @click="goDetail(vals.rows.bizId)">详情</el-button>
         </div>
       </template>
     </ktable>
@@ -31,7 +32,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { deliver } from './../../api/shop'
+import { deliver, editlogistics } from './../../api/shop'
 export default {
   data() {
     var that = this
@@ -40,6 +41,7 @@ export default {
       name:"",
       number:'',
       id:'',
+      isEdit: false,
       tableData: {
         url: '/ana/admin/biz/page',
         toobar: [
@@ -56,17 +58,22 @@ export default {
            {
             prop: 'bizNo',
             label: '订单编号',
-            minWidth: 80
+            minWidth: 180
           },
           {
             prop: 'addrUserName',
             label: '收件人',
-            minWidth: 50
+            minWidth: 100
+          },
+          {
+            prop: 'userName',
+            label: '昵称',
+            minWidth: 100
           },
           {
             prop: 'addrMobileNo',
             label: '联系方式',
-            minWidth: 120
+            minWidth: 150
           },
           {
             prop: 'address',
@@ -104,7 +111,7 @@ export default {
           {
             prop: 'fieldName1',
             label: '操作',
-            minWidth: 80,
+            minWidth: 160,
             isElementui: true,
             slotName: 'operation'
           }
@@ -115,6 +122,11 @@ export default {
             text: '手机号码：',
             value: 'mobileNo',
             placeholder: '请输入手机号码'
+          },
+          {
+            text: '昵称：',
+            value: 'userName',
+            placeholder: '请输入昵称'
           }
         ]
       }
@@ -124,20 +136,41 @@ export default {
     goDetail(id) {
       this.$router.push('/order/detail?id=' + id)
     },
+    // 修改物流信息
+    editDeliver(row) {
+      this.dialogVisible = true
+      this.id = row.bizId
+      this.name = row.logisticsName
+      this.number = row.logisticsNo
+      this.isEdit = true
+    },
     deliver(){
-      deliver({
+      let data = {
         logisticsName: this.name,
         logisticsNo: this.number,
         bizId: this.id
-        }).then(() => {
+      }
+      if (this.isEdit) {
+        editlogistics(data).then(() => {
           this.dialogVisible = false
-          this.$message.success('发货成功')
+          this.$message.success('操作成功')
           this.$refs.tables.refresh()
-      })
+        })
+      } else {
+        deliver(data).then(() => {
+            this.dialogVisible = false
+            this.$message.success('发货成功')
+            this.$refs.tables.refresh()
+        })
+      }
+      
     },
     showdeliver(id) {
       this.dialogVisible = true
+      this.isEdit = false
       this.id = id
+      this.name = ''
+      this.number = ''
     }
   }
 }

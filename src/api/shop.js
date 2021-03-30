@@ -187,6 +187,48 @@ export function editState(data) {
     data
   })
 }
+/**
+ * 修改物流
+ */
+ export function editlogistics(data) {
+  return fetch({
+    url: '/ana/admin/biz/logistics',
+    method: 'POST',
+    data
+  })
+}
+/**
+ * 撤回
+ */
+ export function withdraw(data) {
+  return fetch({
+    url: '/ana/admin/system/subtract/faction',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 获取
+ */
+ export function getPrize(data) {
+  return fetch({
+    url: '/ana/admin/award/level/list',
+    method: 'get',
+    params: data
+  })
+}
+
+/**
+ * 修改
+ */
+ export function editPrize(data) {
+  return fetch({
+    url: '/ana/admin/award/level/update',
+    method: 'POST',
+    data
+  })
+}
 
 
 

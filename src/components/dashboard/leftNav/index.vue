@@ -40,6 +40,10 @@
           <!-- <i class="iconfont iconfont-right el-icon-s-order"></i> -->
           <span>抽奖记录</span>
         </el-menu-item>
+        <el-menu-item index="/prize">
+          <!-- <i class="iconfont iconfont-right el-icon-s-order"></i> -->
+          <span>奖品管理</span>
+        </el-menu-item>
       </el-menu>
       <div class="line"></div>
     </div>

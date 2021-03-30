@@ -87,6 +87,14 @@ const routes = [
         meta:{
           active: '/luckDraw'
         }
+      },
+      {
+        path: '/prize',
+        name: 'prize',
+        component: () => import( '@/views/luckDraw/prize'),
+        meta:{
+          active: '/prize'
+        }
       }
     ]
   },

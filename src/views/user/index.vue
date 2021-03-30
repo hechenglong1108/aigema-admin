@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2020-12-15 09:57:46
+ * @LastEditTime: 2021-03-28 19:43:28
 -->
 <template>
   <div class="wrapper">
@@ -22,6 +22,7 @@
       <template slot="operation" slot-scope="vals">
         <div>
           <el-button type="text" @click="operationNum(vals.rows.userId)">发放嘟点</el-button>
+          <el-button type="text" @click="goDetail(vals.rows.userId)">嘟点明细</el-button>
         </div>
       </template>
     </ktable>
@@ -51,6 +52,7 @@
 import {rewardFaction} from '@/api/shop'
 export default {
   data() {
+    var that = this
     return {
       dialogVisible: false,
       num: '',
@@ -58,7 +60,13 @@ export default {
       tableData: {
         url: '/ana/admin/customer/page',
         toobar: [
-          
+          {
+            label:"导出",
+            icon:'el-icon-upload',
+            handler: function () {
+                window.open(that.baseUrl+'/ana/admin/user/export')
+            }
+          }
         ],
         paging: true,
         columns: [
@@ -104,7 +112,7 @@ export default {
           {
             prop: 'operation',
             label: '操作',
-            minWidth: 100,
+            minWidth: 200,
             isElementui: true,
             slotName: 'operation'
           }
@@ -114,12 +122,18 @@ export default {
             text: '手机号码：',
             value: 'mobileNo',
             placeholder: '请输入手机号码'
+          },
+          {
+            text: '昵称：',
+            value: 'wxName',
+            placeholder: '请输入昵称'
           }
         ]
       }
     }
   },
   methods: {
+    
     rewardFaction() {
       rewardFaction({userId: this.userId, faction: this.num}).then(() => {
         this.$message.success('发放成功')
@@ -131,8 +145,8 @@ export default {
       this.userId = userId
       this.dialogVisible = true
     },
-    goDetail(userId, name, url) {
-      this.$router.push('/user/detail?userId=' + userId + '&name=' + name + '&url=' + url)
+    goDetail(userId) {
+      this.$router.push('/user/detail?userId=' + userId)
     },
     selection() {
 
