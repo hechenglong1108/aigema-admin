@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2021-03-31 21:33:50
+ * @LastEditTime: 2021-03-31 22:30:14
 -->
 <template>
   <div class="wrapper">
@@ -12,7 +12,7 @@
     <el-table
     :data="tableData"
     :border="true"
-    style="width: 540px">
+    style="width: 740px">
     <el-table-column
       prop="date"
       label="奖品类型"
@@ -31,9 +31,14 @@
     <el-table-column
       prop="date"
       label="奖品名称"
-      width="180">
+      width="380">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.context" size="mini" placeholder="请输入奖品名称"></el-input>
+        <el-input style="width:120px;margin-right: 10px" v-model="scope.row.context" size="mini" placeholder="请输入奖品名称"></el-input>
+        <template v-if="scope.row.awardType == 1">
+          <span>嘟点：</span>
+        <el-input-number  v-model="scope.row.fraction" size="mini" :min="1" label="请输入嘟点" :precision="0"></el-input-number>
+        </template>
+        
       </template>
     </el-table-column>
     <el-table-column
