@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2021-03-30 11:12:41
+ * @LastEditTime: 2021-03-31 21:33:50
 -->
 <template>
   <div class="wrapper">
@@ -33,7 +33,7 @@
       label="奖品名称"
       width="180">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.desc" size="mini" placeholder="请输入奖品名称"></el-input>
+        <el-input v-model="scope.row.context" size="mini" placeholder="请输入奖品名称"></el-input>
       </template>
     </el-table-column>
     <el-table-column
@@ -73,7 +73,7 @@ export default {
       let awardLevelBOList = this.tableData.map(ele => {
         return {
           level: ele.level,
-          desc: ele.desc,
+          context: ele.context,
           fraction: ele.fraction,
           probability: ele.probability,
           awardType: ele.awardType

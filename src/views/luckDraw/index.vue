@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2021-03-31 13:35:30
+ * @LastEditTime: 2021-03-31 22:14:16
 -->
 <template>
   <div class="wrapper">
@@ -54,7 +54,7 @@ export default {
             minWidth: 160
           },
            {
-            prop: 'desc',
+            prop: 'context',
             label: '获得奖品',
             minWidth: 160
           },
