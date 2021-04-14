@@ -4,7 +4,7 @@
  * @Autor: hcl
  * @Date: 2020-09-20 16:06:55
  * @LastEditors: hcl
- * @LastEditTime: 2021-03-31 22:14:16
+ * @LastEditTime: 2021-04-14 19:18:33
 -->
 <template>
   <div class="wrapper">
@@ -15,7 +15,7 @@
         </div>
       </template>
       <template slot="operation" slot-scope="vals">
-        <div v-if="vals.rows.awardType == 2">
+        <div v-if="vals.rows.awardType == 2 && vals.rows.state == 0">
           <el-button type="text" @click="operationNum(vals.rows.id)">完成兑奖</el-button>
         </div>
       </template>
